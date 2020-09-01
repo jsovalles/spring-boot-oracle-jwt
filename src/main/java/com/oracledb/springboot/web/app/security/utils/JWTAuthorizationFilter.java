@@ -1,4 +1,4 @@
-package com.oracledb.springboot.web.app.auth.filter;
+package com.oracledb.springboot.web.app.security.utils;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.oracledb.springboot.web.app.auth.IJWTService;
-import com.oracledb.springboot.web.app.auth.impl.JWTServiceImpl;
+import com.oracledb.springboot.web.app.security.service.IJWTService;
+import com.oracledb.springboot.web.app.security.service.impl.JWTServiceImpl;
 
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {

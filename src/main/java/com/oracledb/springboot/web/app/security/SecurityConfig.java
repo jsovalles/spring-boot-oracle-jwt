@@ -1,18 +1,20 @@
-package com.oracledb.springboot.web.app;
+package com.oracledb.springboot.web.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-import com.oracledb.springboot.web.app.auth.IJWTService;
-import com.oracledb.springboot.web.app.auth.filter.JWTAuthenticationFilter;
-import com.oracledb.springboot.web.app.auth.filter.JWTAuthorizationFilter;
+import com.oracledb.springboot.web.app.security.service.IJWTService;
+import com.oracledb.springboot.web.app.security.utils.JWTAuthenticationFilter;
+import com.oracledb.springboot.web.app.security.utils.JWTAuthorizationFilter;
 
 
-@EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled=true)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -22,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/customers/v1/").permitAll()
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/customers/v1", "/users/sign-up").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtService))

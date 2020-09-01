@@ -1,4 +1,4 @@
-package com.oracledb.springboot.web.app.auth.filter;
+package com.oracledb.springboot.web.app.security.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,9 +20,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oracledb.springboot.web.app.auth.IJWTService;
-import com.oracledb.springboot.web.app.auth.impl.JWTServiceImpl;
-import com.oracledb.springboot.web.app.customers.dao.entity.Usuario;
+import com.oracledb.springboot.web.app.security.service.IJWTService;
+import com.oracledb.springboot.web.app.security.service.impl.JWTServiceImpl;
+import com.oracledb.springboot.web.app.users.dao.entity.Usuario;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

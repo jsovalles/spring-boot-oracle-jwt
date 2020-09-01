@@ -1,4 +1,4 @@
-package com.oracledb.springboot.web.app.auth;
+package com.oracledb.springboot.web.app.security.service;
 
 import java.io.IOException;
 import java.util.Collection;

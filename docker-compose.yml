@@ -1,0 +1,28 @@
+version: "3"
+services:
+    customers-oracledb:
+        image: oracle/database:18.4.0-xe
+        ports:
+            - 1521:1521
+            - 5500:5500
+        container_name: oracledb-jwt
+        environment:
+            - ORACLE_PWD=Oracle12345
+        volumes:
+            - ./oradata:/opt/oracle/oradata # persistent oracle database data.
+            - ./scripts:/opt/oracle/scripts/setup
+    customers-main:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        image: customers
+        restart: on-failure
+        container_name: spring-boot-customers-jwt
+        depends_on:
+            - customers-oracledb
+        ports:
+            - 8080:8080
+        environment: 
+            - DB_URL=jdbc:oracle:thin:@oracledb-jwt:1521:xe
+            - DB_USERNAME=intro_user
+            - DB_PASSWORD=mypassword

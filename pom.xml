@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.oracledb.springboot.app</groupId>
-	<artifactId>spring-boot-oracle-db-example</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-oracle-db-example</name>
+	<artifactId>spring-boot-oracle-jwt-proyect</artifactId>
+	<version>1.0.0</version>
+	<name>spring-boot-oracle-jwt-proyect</name>
 	<description>Spring boot proyect using Oracle DB</description>
 
 	<properties>
@@ -58,6 +58,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<!-- JWT DEPENDENCIES -->
 		<dependency>
