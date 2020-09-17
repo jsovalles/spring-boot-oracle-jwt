@@ -1,16 +1,11 @@
-/*
-Sample data for the Introduction to Oracle SQL course
-*/
+DROP TABLE intro_user.roles;
+DROP TABLE intro_user.users;
+DROP TABLE intro_user.customer_order;
+DROP TABLE intro_user.customer;
+DROP TABLE intro_user.product;
+DROP TABLE intro_user.employee;
+DROP TABLE intro_user.department;
 
-/*
-DROP TABLE ROLES;
-DROP TABLE USERS;
-DROP TABLE customer_order;
-DROP TABLE customer;
-DROP TABLE product;
-DROP TABLE employee;
-DROP TABLE department;
-*/
 
 CREATE TABLE intro_user.users (
   id NUMBER(5) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
@@ -22,7 +17,7 @@ CREATE TABLE intro_user.users (
 
 CREATE TABLE intro_user.roles (
     id NUMBER(5) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
-    user_id NUMBER(5) NOT NULL,
+    user_id NUMBER(5),
     authority VARCHAR(45) NOT NULL,
     CONSTRAINT roles_unique UNIQUE (user_id, authority),
     CONSTRAINT pk_role PRIMARY KEY (id),
@@ -60,7 +55,7 @@ CREATE TABLE intro_user.product (
 );
 
 CREATE TABLE intro_user.customer (
-  customer_id NUMBER(5),
+  customer_id NUMBER(5) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
   first_name VARCHAR2(100),
   last_name VARCHAR2(100),
   address_state VARCHAR2(10),
@@ -321,16 +316,16 @@ INSERT INTO intro_user.product (product_id, product_name, price, department_id) 
 
 
 --Customer
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (1, 'Teresa', 'Hudson', 'NY', 'thudson@abc.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (2, 'Fred', 'Montgomery', 'CA', 'fmont@gmail.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (3, 'Lois', 'Lawson', 'OR', 'lois_law@outlook.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (4, 'Alice', 'Perry', 'SC', 'aliceperry');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (5, 'Ralph', 'Montgomery', 'TX', 'ralph_mont25@gmail.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (6, 'Dorothy', 'Armstrong', 'OR', 'abc123@abc.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (7, 'Fred', 'Wallace', 'NY', 'wallacef@testwebsite.co.uk');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (8, 'Joseph', 'Bell', 'FL', 'jbell@comm.edu');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (9, 'Lois', 'Martinez', 'CALIF', 'loismar@awe.com');
-INSERT INTO intro_user.customer (customer_id, first_name, last_name, address_state, email_address) VALUES (10, 'Robert', 'Rice', 'IN', 'robrice123');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Teresa', 'Hudson', 'NY', 'thudson@abc.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Fred', 'Montgomery', 'CA', 'fmont@gmail.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Lois', 'Lawson', 'OR', 'lois_law@outlook.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Alice', 'Perry', 'SC', 'aliceperry');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Ralph', 'Montgomery', 'TX', 'ralph_mont25@gmail.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Dorothy', 'Armstrong', 'OR', 'abc123@abc.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Fred', 'Wallace', 'NY', 'wallacef@testwebsite.co.uk');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Joseph', 'Bell', 'FL', 'jbell@comm.edu');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Lois', 'Martinez', 'CALIF', 'loismar@awe.com');
+INSERT INTO intro_user.customer (first_name, last_name, address_state, email_address) VALUES ('Robert', 'Rice', 'IN', 'robrice123');
 
 
 

@@ -2,28 +2,15 @@ package com.oracledb.springboot.web.app.users.dao.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
 @Data
 public class Usuario implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,8 +24,14 @@ public class Usuario implements Serializable{
 	
 	private boolean enabled;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Role> roles;
+
+	// Persiting enable to be always true when we are creating a user
+	@PrePersist
+	void preInsert() {
+		if (!this.isEnabled())
+			this.setEnabled(true);
+	}
 
 }

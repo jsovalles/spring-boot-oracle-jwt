@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/customers/v1")
+@CrossOrigin({"http://localhost:4200","https://jsovalles.github.io"})
 public class CustomerControllerV1 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerControllerV1.class);
@@ -57,7 +57,6 @@ public class CustomerControllerV1 {
 	}
 
 	@GetMapping("/customer")
-	// @Secured("ROLE_ADMIN")
 	public Customer getCustomerbyFirstName(@RequestParam("firstName") String firstName) {
 
 		Customer customer = service.getCustomerbyFirstNameV1(firstName);
@@ -65,7 +64,8 @@ public class CustomerControllerV1 {
 		return customer;
 	}
 
-	@PostMapping("/customer")
+	@Secured("ROLE_ADMIN")
+	@PostMapping
 	public ResponseEntity createCustomer(@RequestBody Customer customer, BindingResult result) {
 		
 		Map<String, Object> response = new HashMap<>();
@@ -94,7 +94,7 @@ public class CustomerControllerV1 {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/customer/{id}")
+	@PatchMapping("/{id}")
 	public ResponseEntity<?> updateCustomer(@PathVariable(value = "id") int id, @RequestBody Customer customer, BindingResult result) {
 		
 		Customer customerVerification = service.getCustomerV1(id);
@@ -134,7 +134,7 @@ public class CustomerControllerV1 {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping(path = "/customer/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCustomer(@PathVariable(value = "id") int id) {
 		
 		Map<String, Object> response = new HashMap<>();

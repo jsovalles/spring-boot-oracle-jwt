@@ -1,14 +1,11 @@
 package com.oracledb.springboot.web.app.security.utils;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oracledb.springboot.web.app.security.service.IJWTService;
+import com.oracledb.springboot.web.app.security.service.impl.JWTServiceImpl;
+import com.oracledb.springboot.web.app.users.dao.entity.Usuario;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,13 +14,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oracledb.springboot.web.app.security.service.IJWTService;
-import com.oracledb.springboot.web.app.security.service.impl.JWTServiceImpl;
-import com.oracledb.springboot.web.app.users.dao.entity.Usuario;
-
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -33,28 +30,28 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, IJWTService jwtService) {
 		this.authenticationManager = authenticationManager;
-		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
+		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/users/login", "POST"));
 		this.jwtService = jwtService;
 	}
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		
+
 			Usuario user;
 			String username=null;
 			String password = null;
-			
+
 			try {
-				
+
 				user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
-				
+
 				username = user.getUsername();
 				password = user.getPassword();
-				
+
 				logger.info("Username desde request InputStream (raw): " + username);
 				logger.info("Password desde request InputStream (raw): " + password);
-				
+
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {
@@ -62,7 +59,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
+
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
 		
 		return authenticationManager.authenticate(authToken);

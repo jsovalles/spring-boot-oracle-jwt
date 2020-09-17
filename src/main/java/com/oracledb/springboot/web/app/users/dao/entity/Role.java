@@ -4,21 +4,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "roles", uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "authority"})})
+@Table(name = "roles")
 @Data
 public class Role implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,5 +18,9 @@ public class Role implements Serializable {
 	private int id;
 	
 	private String authority;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private Usuario user;
 
 }
