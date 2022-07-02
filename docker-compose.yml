@@ -10,7 +10,8 @@ services:
             - ORACLE_PWD=Oracle12345
         volumes:
             - ./oradata:/opt/oracle/oradata # persistent oracle database data.
-            - ./scripts:/opt/oracle/scripts/setup
+            - ./scripts/setup:/opt/oracle/scripts/setup
+            - ./scripts/startup:/opt/oracle/scripts/startup
     customers-main:
         build: 
             context: .
